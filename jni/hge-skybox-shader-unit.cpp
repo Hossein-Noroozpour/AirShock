@@ -1,0 +1,117 @@
+#include "hge-skybox-shader-unit.hpp"
+#include <iostream>
+#define HGEPRINTCODELINE std::cout << "Debugging: file:" << __FILE__ << " line:" << __LINE__ << std::endl << std::flush;
+
+hge::shader::SkyBoxShaderUnit::SkyBoxShaderUnit(const std::string &fileName, const bool &hasGeometryShader)
+{
+	this->hasGeometryShader = hasGeometryShader;
+
+	shaderProgram = render::ShaderEngine::createProgram();
+
+	auto pVS = render::ShaderEngine::readIntireFile(fileName + ".vertexShader");
+	vertexShaderProgram = render::ShaderEngine::addShaderToProgram(pVS, GL_VERTEX_SHADER, shaderProgram);
+
+	if(hasGeometryShader)
+	{
+		auto pGS = render::ShaderEngine::readIntireFile(fileName + ".geometryShader");
+		geometryShaderProgram = render::ShaderEngine::addShaderToProgram(pGS, GL_GEOMETRY_SHADER, shaderProgram);
+	}
+
+	auto pFS = render::ShaderEngine::readIntireFile(fileName + ".fragmentShader");
+	fragmentShaderProgram = render::ShaderEngine::addShaderToProgram(pFS, GL_FRAGMENT_SHADER, shaderProgram);
+
+	render::ShaderEngine::run(shaderProgram);
+
+	modelViewProjectionMatrixUniformLocation =
+			render::ShaderEngine::getUniformLocation(std::string("mvpm"), shaderProgram);
+	assert(modelViewProjectionMatrixUniformLocation != 0xFFFFFFFF);
+	glUniformMatrix4fv(modelViewProjectionMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(glm::mat4(1.0f)));
+
+	uvMoveUniformLocation =	render::ShaderEngine::getUniformLocation(std::string("uvMove"), shaderProgram);
+	assert(uvMoveUniformLocation != 0xFFFFFFFF);
+	glUniform1f(uvMoveUniformLocation, 0.0f);
+
+	textureSamplerUniformLocation = render::ShaderEngine::getUniformLocation("ts" , shaderProgram);
+	assert(textureSamplerUniformLocation != 0xFFFFFFFF);
+	glUniform1i(textureSamplerUniformLocation, 0);
+}
+hge::shader::SkyBoxShaderUnit::~SkyBoxShaderUnit()
+{
+	hge::render::ShaderEngine::endObject(vertexShaderProgram);
+	if(hasGeometryShader) hge::render::ShaderEngine::endObject(geometryShaderProgram);
+	hge::render::ShaderEngine::endObject(fragmentShaderProgram);
+	hge::render::ShaderEngine::endProgram(shaderProgram);
+}
+
+void hge::shader::SkyBoxShaderUnit::setModelMatrix(const glm::mat4 &modelMatrix)
+{
+	std::cerr << "This shader does not have model matrix." << std::endl;
+	HGEPRINTCODELINE
+	std::terminate();
+}
+
+void hge::shader::SkyBoxShaderUnit::setModelViewProjectionMatrix(const glm::mat4 &modelViewProjectionMatrix)
+{
+	glUniformMatrix4fv(modelViewProjectionMatrixUniformLocation, 1, GL_FALSE,
+			glm::value_ptr(modelViewProjectionMatrix));
+}
+
+void hge::shader::SkyBoxShaderUnit::setLODNumber(const GLuint& lodNumber)
+{
+	std::cerr << "This shader does not have LOD system." << std::endl;
+	HGEPRINTCODELINE
+	std::terminate();
+}
+
+void hge::shader::SkyBoxShaderUnit::setCloudsSpeed(const float &deltaDistance)
+{
+	glUniform1f(uvMoveUniformLocation, deltaDistance);
+}
+
+void hge::shader::SkyBoxShaderUnit::use()
+{
+	glUseProgram(shaderProgram);
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*) 0);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+}
+
+GLuint hge::shader::SkyBoxShaderUnit::getModelViewProjectionMatrixUniformLocation()
+{
+	return modelViewProjectionMatrixUniformLocation;
+}
+
+GLuint hge::shader::SkyBoxShaderUnit::getModelMatrixUniformLoaction()
+{
+	std::cerr << "This shader does not have model matrix." << std::endl;
+	HGEPRINTCODELINE
+	std::terminate();
+	return 0;
+}
+
+GLuint hge::shader::SkyBoxShaderUnit::getVertexShaderProgram()
+{
+	return vertexShaderProgram;
+}
+
+GLuint hge::shader::SkyBoxShaderUnit::getGeometryShaderProgram()
+{
+	if(hasGeometryShader)
+	{
+		std::cerr << "This shader does not have geometry shader." << std::endl;
+		HGEPRINTCODELINE
+		std::terminate();
+	}
+	return 0;
+}
+
+GLuint hge::shader::SkyBoxShaderUnit::getFragmentShaderProgram()
+{
+	return fragmentShaderProgram;
+}
+
+GLuint hge::shader::SkyBoxShaderUnit::getShaderProgram()
+{
+	return shaderProgram;
+}
