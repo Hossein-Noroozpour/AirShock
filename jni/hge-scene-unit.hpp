@@ -17,7 +17,7 @@ namespace hge
 		private:
 			std::vector<std::shared_ptr<GeometryUnit>> geometries;
 			std::vector<std::shared_ptr<math::CameraMatrix>> cameras;
-			std::vector<std::shared_ptr<math::PerspectiveMatrix>> perspectives;
+			std::vector<std::shared_ptr<math::PerspectiveUnit>> perspectives;
 			std::shared_ptr<shader::ShaderUnit> occlusionQueryShader;
 			std::shared_ptr<shader::SunShader> defaultShader;
 			std::shared_ptr<texture::TextureUnit> defaultTexture;

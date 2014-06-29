@@ -16,7 +16,7 @@ namespace hge
 			glm::mat4 rotateScaleMatrix;//rotation scale matrix
 			glm::mat4 rotateMatrix;	//rotation matrix
 		public:
-			ModelMatrix();
+			ModelUnit();
 			void translate(const glm::vec3 &trn);
 			void scale(const float &size);
 			const glm::mat4 &getConstRotateScaleTranslateMatrix();

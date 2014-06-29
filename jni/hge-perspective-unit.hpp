@@ -5,7 +5,7 @@ namespace hge
 {
 	namespace math
 	{
-		class PerspectiveMatrix
+		class PerspectiveUnit
 		{
 		private:
 			glm::mat4 persM;

@@ -1,42 +1,40 @@
 #ifndef HGE_CAMERA_UNIT_HPP
 #define HGE_CAMERA_UNIT_HPP
-#include "glm/glm.hpp"
+#include "hge-math.hpp"
 namespace hge
 {
 	namespace math
 	{
-		class CameraMatrix
+		class CameraUnit
 		{
 		private:
-			glm::vec3 cmrX;
-			glm::vec3 cmrY;
-			glm::vec3 cmrZ;
-
-			glm::vec3 cmrLoc;//Location
-
-			glm::mat4 viewM;
-			glm::mat4 rotsclM;
+			Vector3D<> cmrX;
+			Vector3D<> cmrY;
+			Vector3D<> cmrZ;
+			Vector3D<> cmrLoc;
+			Matrix4D<> viewM;
+			Matrix4D<> rotsclM;
 		public:
-			CameraMatrix();
-			~CameraMatrix();
-			void translate(const glm::vec3 &vec);
-			void move(const glm::vec3 &vec);
+			CameraUnit();
+			~CameraUnit();
+			void translate(const Vector3D<> &vec);
+			void move(const Vector3D<> &vec);
 			void rotateLocalX(const float &rad);
 			void rotateLocalY(const float &rad);
 			void rotateLocalZ(const float &rad);
-			void rotateLocal(const float &rad, const glm::vec3 &vec);
+			void rotateLocal(const float &rad, const Vector3D<> &vec);
 			void rotateGlobalX(const float &rad);
 			void rotateGlobalY(const float &rad);
 			void rotateGlobalZ(const float &rad);
-			void rotateTotal(const float &rad, const glm::vec3 &vec);
-			void rotate(const float &rad, const glm::vec3 &vec);
+			void rotateTotal(const float &rad, const Vector3D<> &vec);
+			void rotate(const float &rad, const Vector3D<> &vec);
 			void scaleX(const float &x);
 			void scaleY(const float &y);
 			void scaleZ(const float &z);
 			void scale(const float &x, const float &y, const float &z);
-			const glm::mat4 &getMatrix();
-			const glm::mat4 &getRotateScaleMatrix();
-			const glm::vec3 getLocation();
+			const Matrix4D<> &getMatrix();
+			const Matrix4D<> &getRotateScaleMatrix();
+			const Vector3D<> getLocation();
 			void moveForward (const float &spd);
 			void moveSideward(const float &spd);
 		};

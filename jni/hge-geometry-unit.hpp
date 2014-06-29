@@ -1,6 +1,6 @@
 #ifndef HGE_GEOMETRY_UNIT_HPP_
 #define HGE_GEOMETRY_UNIT_HPP_
-#include <string>
+#include <string.h>
 #include "hge-mesh-unit.hpp"
 #include "hge-model-unit.hpp"
 #include "hge-shader-unit.hpp"
@@ -15,9 +15,7 @@ namespace hge
 		class GeometryUnit
 		{
 		public:
-			GeometryUnit(
-					const std::string& id,
-					const std::string& name);
+			GeometryUnit(const std::string& id, const std::string& name);
 			~GeometryUnit();
 			void setMesh(const std::shared_ptr<MeshUnit>& m);
 			void setOcclusionQueryMesh(const std::shared_ptr<MeshUnit>& m);
@@ -28,7 +26,7 @@ namespace hge
 			void setShader(const std::shared_ptr<shader::ShaderUnit>& shader);
 			void setOcclusionQueryShader(const std::shared_ptr<shader::ShaderUnit>& shader);
 			void setTexture(const std::shared_ptr<texture::TextureUnit>& texture);
-			math::ModelMatrix* getModelMatrix();
+			math::ModelUnit* getModelMatrix();
 			std::shared_ptr<MeshUnit> getMesh();
 		private:
 			GLuint queries[HGEGEOMETRYNUMBEROFQUERIES];
