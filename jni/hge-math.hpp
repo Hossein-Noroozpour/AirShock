@@ -1,5 +1,6 @@
 #ifndef HGE_MATH_HPP
 #define HGE_MATH_HPP
+#include <cmath>
 namespace hge
 {
 	namespace math
@@ -7,9 +8,8 @@ namespace hge
 		template<typename element_type=float>
 		class Vector3D
 		{
-		private:
-			element_type vec [3];
 		public:
+			element_type vec [3];
 			Vector3D(element_type x, element_type y, element_type z)
 			{
 				vec[0] = x;
@@ -22,14 +22,50 @@ namespace hge
 				vec[1] = e;
 				vec[2] = e;
 			}
+			element_type dot(const Vector3D &another) const
+			{
+				return  (vec[0] * another.vec[0]) +
+						(vec[1] * another.vec[1]) +
+						(vec[2] * another.vec[2]);
+			}
+			static element_type dot(const Vector3D &a, const Vector3D &b)
+			{
+				return  (b.vec[0] * a.vec[0]) +
+						(b.vec[1] * a.vec[1]) +
+						(b.vec[2] * a.vec[2]);
+			}
+			Vector3D<element_type> cross(const Vector3D<element_type> &a) const
+			{
+				return Vector3D<element_type>((vec[1] * a.vec[2]) - (vec[2] * a.vec[1]),
+					(vec[2] * a.vec[0]) - (vec[0] * a.vec[2]),
+					(vec[0] * a.vec[1]) - (vec[1] * a.vec[0]));
+			}
+			static Vector3D<element_type> cross(const Vector3D<element_type> &a, const Vector3D<element_type> &b)
+			{
+				return Vector3D<element_type>((a.vec[1] * b.vec[2]) - (a.vec[2] * b.vec[1]),
+					(a.vec[2] * b.vec[0]) - (a.vec[0] * b.vec[2]),
+					(a.vec[0] * b.vec[1]) - (a.vec[1] * b.vec[0]));
+			}
+			void normalize()
+			{
+				element_type len = (element_type)sqrtl((long double)(vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2]));
+				vec[0] /= len;
+				vec[1] /= len;
+				vec[2] /= len;
+			}
+			static Vector3D<element_type> normalize(const Vector3D<element_type> &a)
+			{
+				element_type len = (element_type)sqrtl((long double)(
+						a.vec[0] * a.vec[0] + a.vec[1] * a.vec[1] + a.vec[2] * a.vec[2]));
+				return Vector3D<element_type>(a.vec[0] / len, a.vec[1] / len, a.vec[2] / len);
+			}
 		};
 
 		template<typename element_type=float>
 		class Vector4D
 		{
-		private:
-			element_type vec [4];
 		public:
+			element_type vec [4];
 			Vector4D(element_type x, element_type y, element_type z,  element_type w)
 			{
 				vec[0] = x;
@@ -43,6 +79,49 @@ namespace hge
 				vec[1] = e;
 				vec[2] = e;
 				vec[3] = e;
+			}
+			element_type dot(const Vector4D &another) const
+			{
+				return  (vec[0] * another.vec[0]) +
+						(vec[1] * another.vec[1]) +
+						(vec[2] * another.vec[2]) +
+						(vec[3] * another.vec[3]);
+			}
+			static element_type dot(const Vector4D &a, const Vector4D &b)
+			{
+				return  (b.vec[0] * a.vec[0]) +
+						(b.vec[1] * a.vec[1]) +
+						(b.vec[2] * a.vec[2]) +
+						(b.vec[3] * a.vec[3]);
+			}
+			Vector4D<element_type> cross(const Vector4D<element_type> &a) const
+			{
+				return Vector4D<element_type>((vec[1] * a.vec[2]) - (vec[2] * a.vec[1]),
+					(vec[2] * a.vec[0]) - (vec[0] * a.vec[2]),
+					(vec[0] * a.vec[1]) - (vec[1] * a.vec[0]),
+					vec[3] * a.vec[3]);
+			}
+			static Vector4D<element_type> cross(const Vector4D<element_type> &a, const Vector4D<element_type> &b)
+			{
+				return Vector4D<element_type>((a.vec[1] * b.vec[2]) - (a.vec[2] * b.vec[1]),
+					(a.vec[2] * b.vec[0]) - (a.vec[0] * b.vec[2]),
+					(a.vec[0] * b.vec[1]) - (a.vec[1] * b.vec[0]),
+					a.vec[3] * b.vec[3]);
+			}
+			void normalize()
+			{
+				element_type len = (element_type)sqrtl((long double)(
+						vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2] + vec[3] * vec[3]));
+				vec[0] /= len;
+				vec[1] /= len;
+				vec[2] /= len;
+				vec[3] /= len;
+			}
+			static Vector4D<element_type> normalize(const Vector4D<element_type> &a)
+			{
+				element_type len = (element_type)sqrtl((long double)(
+						a.vec[0] * a.vec[0] + a.vec[1] * a.vec[1] + a.vec[2] * a.vec[2] + a.vec[3] * a.vec[3]));
+				return Vector4D<element_type>(a.vec[0] / len, a.vec[1] / len, a.vec[2] / len, a.vec[3] / len);
 			}
 		};
 
