@@ -59,6 +59,46 @@ namespace hge
 						a.vec[0] * a.vec[0] + a.vec[1] * a.vec[1] + a.vec[2] * a.vec[2]));
 				return Vector3D<element_type>(a.vec[0] / len, a.vec[1] / len, a.vec[2] / len);
 			}
+			Vector3D<element_type> operator+(const Vector3D<element_type> &a)
+			{
+				return Vector3D<element_type>(vec[0] + a.vec[0], vec[1] + a.vec[1], vec[2] + a.vec[2]);
+			}
+			Vector3D<element_type> operator-(const Vector3D<element_type> &a)
+			{
+				return Vector3D<element_type>(vec[0] - a.vec[0], vec[1] - a.vec[1], vec[2] - a.vec[2]);
+			}
+			Vector3D<element_type> operator*(const Vector3D<element_type> &a)
+			{
+				return Vector3D<element_type>(vec[0] * a.vec[0], vec[1] * a.vec[1], vec[2] * a.vec[2]);
+			}
+			Vector3D<element_type> operator/(const Vector3D<element_type> &a)
+			{
+				return Vector3D<element_type>(vec[0] / a.vec[0], vec[1] / a.vec[1], vec[2] / a.vec[2]);
+			}
+			void operator+=(const Vector3D<element_type> &a)
+			{
+				vec[0] += a.vec[0];
+				vec[1] += a.vec[1];
+				vec[2] += a.vec[2];
+			}
+			void operator-=(const Vector3D<element_type> &a)
+			{
+				vec[0] -= a.vec[0];
+				vec[1] -= a.vec[1];
+				vec[2] -= a.vec[2];
+			}
+			void operator*=(const Vector3D<element_type> &a)
+			{
+				vec[0] *= a.vec[0];
+				vec[1] *= a.vec[1];
+				vec[2] *= a.vec[2];
+			}
+			void operator/=(const Vector3D<element_type> &a)
+			{
+				vec[0] /= a.vec[0];
+				vec[1] /= a.vec[1];
+				vec[2] /= a.vec[2];
+			}
 		};
 
 		template<typename element_type=float>
@@ -128,9 +168,8 @@ namespace hge
 		template<typename element_type=float>
 		class Matrix4D
 		{
-		private:
-			element_type mat [16];
 		public:
+			element_type mat [16];
 			Matrix4D(element_type e)
 			{
 				mat[0 ] = e;
@@ -149,6 +188,36 @@ namespace hge
 				mat[13] = element_type(0);
 				mat[14] = element_type(0);
 				mat[15] = e;
+			}
+			Matrix4D()
+			{}
+			/// WARNING: It is not tested yet!
+			static Matrix4D<element_type> lookAt(
+					const Vector3D<element_type> &position,
+					const Vector3D<element_type> &target,
+					const Vector3D<element_type> &up)
+			{
+				Vector3D<element_type> z = (target - position).normalize();
+				Vector3D<element_type> x = up.cross(z).normalize();
+				Vector3D<element_type> y = z.cross(x);
+				Matrix4D<element_type> m;
+				m.mat[0 ] = x.vec[0];
+				m.mat[1 ] = x.vec[1];
+				m.mat[2 ] = x.vec[2];
+				m.mat[3 ] = -x.dot(position);
+				m.mat[4 ] = y.vec[0];
+				m.mat[5 ] = y.vec[1];
+				m.mat[6 ] = y.vec[2];
+				m.mat[7 ] = -y.dot(position);
+				m.mat[8 ] = z.vec[0];
+				m.mat[9 ] = z.vec[1];
+				m.mat[10] = z.vec[2];
+				m.mat[11] = -z.dot(position);
+				m.mat[12] = element_type(0.0);
+				m.mat[13] = element_type(0.0);
+				m.mat[14] = element_type(0.0);
+				m.mat[15] = element_type(1.0);
+				return m;
 			}
 		};
 	}
