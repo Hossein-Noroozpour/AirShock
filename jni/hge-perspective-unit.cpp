@@ -1,12 +1,12 @@
-#include "hge-perspective-matrix.hpp"
+#include "hge-perspective-unit.hpp"
 hge::math::PerspectiveUnit::PerspectiveUnit():
-	persM(glm::perspective(50.0f, 1.778645833f, 0.5f, 900000000000000000000000.0f))
+	persM(Matrix4D<>::perspective(3.0f, 2.0f, 3.0f, 900000000000000000000000.0f))
 {
 }
 hge::math::PerspectiveUnit::~PerspectiveUnit()
 {
 }
-const glm::mat4 &hge::math::PerspectiveUnit::getMatrix()
+const hge::math::Matrix4D<> &hge::math::PerspectiveUnit::getMatrix()
 {
 	return persM;
 }

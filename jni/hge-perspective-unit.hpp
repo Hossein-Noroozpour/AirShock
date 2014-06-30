@@ -1,6 +1,6 @@
 #ifndef HGE_PERSPECTIVE_UNIT_HPP_
 #define HGE_PERSPECTIVE_UNIT_HPP_
-#include "glm/glm.hpp"
+#include "hge-math.hpp"
 namespace hge
 {
 	namespace math
@@ -8,11 +8,11 @@ namespace hge
 		class PerspectiveUnit
 		{
 		private:
-			glm::mat4 persM;
+			Matrix4D<> persM;
 		public:
-			PerspectiveMatrix();
-			~PerspectiveMatrix();
-			const glm::mat4 &getMatrix();
+			PerspectiveUnit();
+			~PerspectiveUnit();
+			const Matrix4D<> &getMatrix();
 		};
 	}
 }

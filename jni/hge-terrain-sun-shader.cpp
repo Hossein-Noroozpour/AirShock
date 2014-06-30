@@ -34,12 +34,12 @@ hge::shader::TerrainSunShader::TerrainSunShader():
 #ifdef HGETERRAINSUNSHADERDEBUGMODE
 	assert(mvpmul != 0xFFFFFFFF);
 #endif
-	glUniformMatrix4fv(mvpmul, 1, GL_FALSE, glm::value_ptr(glm::mat4(1.0f)));
+	glUniformMatrix4fv(mvpmul, 1, GL_FALSE, math::Matrix4D<>(1.0f).mat);
 	cprtmul = render::ShaderEngine::getUniformLocation(std::string("cprtm"), shaderProgram);
 #ifdef HGETERRAINSUNSHADERDEBUGMODE
 	assert(cprtmul != 0xFFFFFFFF);
 #endif
-	glUniform3fv(cprtmul, 1, glm::value_ptr(glm::vec3(1.0f)));
+	glUniform3fv(cprtmul, 1, math::Vector3D<>(1.0f).vec);
 	lodnul = render::ShaderEngine::getUniformLocation(std::string("lodn"), shaderProgram);
 #ifdef HGETERRAINSUNSHADERDEBUGMODE
 	assert(lodnul != 0xFFFFFFFF);
@@ -62,17 +62,17 @@ hge::shader::TerrainSunShader::~TerrainSunShader()
 	hge::render::ShaderEngine::endObject(fragmentShaderProgram);
 	hge::render::ShaderEngine::endProgram(shaderProgram);
 }
-void hge::shader::TerrainSunShader::setModelMatrix(const glm::mat4 &modelMatrix)
+void hge::shader::TerrainSunShader::setModelMatrix(const math::Matrix4D<> &modelMatrix)
 {
-	glUniformMatrix4fv(mmul, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+	glUniformMatrix4fv(mmul, 1, GL_FALSE, modelMatrix.mat);
 }
-void hge::shader::TerrainSunShader::setModelViewProjectionMatrix(const glm::mat4 &modelViewProjectionMatrix)
+void hge::shader::TerrainSunShader::setModelViewProjectionMatrix(const math::Matrix4D<> &modelViewProjectionMatrix)
 {
-	glUniformMatrix4fv(mvpmul, 1, GL_FALSE, glm::value_ptr(modelViewProjectionMatrix));
+	glUniformMatrix4fv(mvpmul, 1, GL_FALSE, modelViewProjectionMatrix.mat);
 }
-void hge::shader::TerrainSunShader::setCameraPositionRelativeToModel(const glm::vec3& p)
+void hge::shader::TerrainSunShader::setCameraPositionRelativeToModel(const math::Vector3D<>& p)
 {
-	glUniform3fv(cprtmul, 1, glm::value_ptr(p));
+	glUniform3fv(cprtmul, 1, p.vec);
 }
 void hge::shader::TerrainSunShader::setLODNumber(const GLuint& lodNumber)
 {

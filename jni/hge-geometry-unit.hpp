@@ -5,6 +5,8 @@
 #include "hge-model-unit.hpp"
 #include "hge-shader-unit.hpp"
 #include "hge-texture-unit.hpp"
+#include "hge-math.hpp"
+#include <memory>
 //#define HGEGEOMETRYDEBUGMVPVALUECHECK
 #define HGEGEOMETRYNUMBEROFQUERIES 1
 #define HGEGEOMETRYOCCLUSIONQUERYID 0
@@ -20,8 +22,8 @@ namespace hge
 			void setMesh(const std::shared_ptr<MeshUnit>& m);
 			void setOcclusionQueryMesh(const std::shared_ptr<MeshUnit>& m);
 			void draw();
-			void occlusionQuery(const glm::mat4& vp);
-			void occlusionQueryStarter(const glm::mat4& vp);
+			void occlusionQuery(const math::Matrix4D<>& vp);
+			void occlusionQueryStarter(const math::Matrix4D<>& vp);
 			bool isThisYourID(const std::string& idstr);
 			void setShader(const std::shared_ptr<shader::ShaderUnit>& shader);
 			void setOcclusionQueryShader(const std::shared_ptr<shader::ShaderUnit>& shader);
@@ -32,8 +34,8 @@ namespace hge
 			GLuint queries[HGEGEOMETRYNUMBEROFQUERIES];
 			std::string id;
 			std::string name;
-			glm::mat4 mvp;
-			math::ModelMatrix modelMatrix;
+			math::Matrix4D<> mvp;
+			math::ModelUnit modelMatrix;
 			std::shared_ptr<MeshUnit> mesh;
 			std::shared_ptr<MeshUnit> occlusionQueryMesh;
 			std::shared_ptr<shader::ShaderUnit> shader;

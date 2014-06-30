@@ -1,38 +1,38 @@
-#include "hge-model-matrix.hpp"
+#include "hge-model-unit.hpp"
 hge::math::ModelUnit::ModelUnit():
-	localX(glm::vec3(1.0f, 0.0f, 0.0f)),
-	localY(glm::vec3(0.0f, 1.0f, 0.0f)),
-	localZ(glm::vec3(0.0f, 0.0f, 1.0f)),
-	location(glm::vec3(0.0f, 0.0f, 0.0f)),
-	rotateMatrix(glm::mat4(1.0f)),
-	rotateScaleMatrix(glm::mat4(1.0f)),
-	rotateScaleTranslateMatrix(glm::mat4(1.0f))
+	localX(math::Vector3D<>(1.0f, 0.0f, 0.0f)),
+	localY(math::Vector3D<>(0.0f, 1.0f, 0.0f)),
+	localZ(math::Vector3D<>(0.0f, 0.0f, 1.0f)),
+	location(math::Vector3D<>(0.0f, 0.0f, 0.0f)),
+	rotateScaleTranslateMatrix(math::Matrix4D<>(1.0f)),
+	rotateScaleMatrix(math::Matrix4D<>(1.0f)),
+	rotateMatrix(math::Matrix4D<>(1.0f))
 {
 }
 
-void hge::math::ModelUnit::ModelUnit::translate (const glm::vec3 &trn)
+void hge::math::ModelUnit::ModelUnit::translate (const math::Vector3D<> &trn)
 {
 	location += trn;
-	rotateScaleTranslateMatrix = glm::translate(rotateScaleTranslateMatrix, trn);
+	rotateScaleTranslateMatrix.translate(trn);
 }
 
 void hge::math::ModelUnit::scale(const float &size)
 {
-	rotateScaleMatrix = glm::scale(rotateScaleMatrix, glm::vec3(size));
-	rotateScaleTranslateMatrix = glm::translate(rotateScaleMatrix, location);
+	rotateScaleMatrix.scale(size);
+	rotateScaleTranslateMatrix.translate(location);
 }
 
-const glm::mat4 &hge::math::ModelUnit::getConstRotateScaleTranslateMatrix()
+const hge::math::Matrix4D<> &hge::math::ModelUnit::getConstRotateScaleTranslateMatrix()
 {
 	return rotateScaleTranslateMatrix;
 }
 
-const glm::mat4 &hge::math::ModelUnit::getConstRotateScaleMatrix()
+const hge::math::Matrix4D<> &hge::math::ModelUnit::getConstRotateScaleMatrix()
 {
 	return rotateScaleMatrix;
 }
 
-const glm::mat4 &hge::math::ModelUnit::getConstRotateMatrix()
+const hge::math::Matrix4D<> &hge::math::ModelUnit::getConstRotateMatrix()
 {
 	return rotateMatrix;
 }

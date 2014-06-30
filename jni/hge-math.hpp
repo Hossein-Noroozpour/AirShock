@@ -160,6 +160,10 @@ namespace hge
 				m.mat[15] = element_type(1.0);
 				return m;
 			}
+			element_type length()
+			{
+				return element_type(sqrt(vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2]));
+			}
 		};
 
 		template<typename element_type>
@@ -325,20 +329,20 @@ namespace hge
 				mat[7 ] += v.vec[1];
 				mat[11] += v.vec[2];
 			}
-			Vector3D<element_type> operator*(const Vector3D<element_type> &v)
+			Vector3D<element_type> operator*(const Vector3D<element_type> &v) const
 			{
 				return Vector3D<element_type>(mat[0] * v.vec[0] + mat[1] * v.vec[1] + mat[2 ] * v.vec[2] + mat[3 ],
 											  mat[4] * v.vec[0] + mat[5] * v.vec[1] + mat[6 ] * v.vec[2] + mat[7 ],
 											  mat[8] * v.vec[0] + mat[9] * v.vec[1] + mat[10] * v.vec[2] + mat[11]);
 			}
-			Vector4D<element_type> operator*(const Vector4D<element_type> &v)
+			Vector4D<element_type> operator*(const Vector4D<element_type> &v) const
 			{
 				return Vector4D<element_type>(mat[0 ] * v.vec[0] + mat[1 ] * v.vec[1] + mat[2 ] * v.vec[2] + mat[3 ] * v.vec[3],
 											  mat[4 ] * v.vec[0] + mat[5 ] * v.vec[1] + mat[6 ] * v.vec[2] + mat[7 ] * v.vec[3],
 											  mat[8 ] * v.vec[0] + mat[9 ] * v.vec[1] + mat[10] * v.vec[2] + mat[11] * v.vec[3],
 											  mat[12] * v.vec[0] + mat[13] * v.vec[1] + mat[14] * v.vec[2] + mat[15] * v.vec[3]);
 			}
-			Matrix4D<element_type> operator*(const Matrix4D<element_type> &m)
+			Matrix4D<element_type> operator*(const Matrix4D<element_type> &m) const
 			{
 				Matrix4D<element_type> r;
 				for(int i = 0, ri = 0; i < 16; i += 4)
@@ -375,6 +379,38 @@ namespace hge
 				{
 					mat[i] = m.mat[i];
 				}
+			}
+			void scale(const element_type &f)
+			{
+				for(unsigned int i = 0; i < 16; i++)
+				{
+					mat[i] *= f;
+				}
+			}
+			static Matrix4D<element_type> perspective(
+					const element_type &width,
+					const element_type &height,
+					const element_type &near,
+					const element_type &far)
+			{
+				Matrix4D<element_type> r;
+				r.mat[0 ] = element_type((2.0 * near) / width);
+				r.mat[1 ] = element_type(0.0);
+				r.mat[2 ] = element_type(0.0);
+				r.mat[3 ] = element_type(0.0);
+				r.mat[4 ] = element_type(0.0);
+				r.mat[5 ] = element_type((2.0 * near) / height);
+				r.mat[6 ] = element_type(0.0);
+				r.mat[7 ] = element_type(0.0);
+				r.mat[8 ] = element_type(0.0);
+				r.mat[9 ] = element_type(0.0);
+				r.mat[10] = element_type((far + near) / (near - far));
+				r.mat[11] = element_type((2.0 * far * near) / (near - far));
+				r.mat[12] = element_type(0.0);
+				r.mat[13] = element_type(0.0);
+				r.mat[14] = element_type(-1.0);
+				r.mat[15] = element_type(0.0);
+				return r;
 			}
 		};
 	}

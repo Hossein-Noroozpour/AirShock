@@ -1,5 +1,5 @@
 #include "hge-terrain-unit.hpp"
-#include "hge-camera-matrix.hpp"
+#include "hge-camera-unit.hpp"
 #include <iostream>
 #include <thread>
 #include <mutex>
@@ -74,6 +74,7 @@ hge::render::TerrainUnit::TerrainUnit(const int16_t *const &heights, const int &
 
 void hge::render::TerrainUnit::calculateNTBs(const int &aspect, const double &verticalDegree, const double &horizontalDegree, GLfloat *vbo, const int16_t *const &heights)
 {
+	(void)horizontalDegree;
 	const double earthRaidus = 6371000.0;
 	const double deltaDegree = 0.004166667;
 	/// Vertical delta distance
@@ -89,11 +90,11 @@ void hge::render::TerrainUnit::calculateNTBs(const int &aspect, const double &ve
 			vboIndex += 9;
 		}
 	}
-	auto getVEC = [&] (const int &i, const int &j, const int &ci, const int &cj) -> glm::vec3
+	auto getVEC = [&] (const int &i, const int &j, const int &ci, const int &cj) -> hge::math::Vector3D<>
 	{
 		uint64_t tmpInt1 = (((i*aspect)+j)*NUMBEROFBUFFERCOMPONENTS);
 		uint64_t tmpInt2 = (((ci*aspect)+cj)*NUMBEROFBUFFERCOMPONENTS);
-		return glm::vec3(vbo[tmpInt1] - vbo[tmpInt2],
+		return math::Vector3D<>(vbo[tmpInt1] - vbo[tmpInt2],
 			vbo[tmpInt1 + 1] - vbo[tmpInt2 + 1],
 			vbo[tmpInt1 + 2] - vbo[tmpInt2 + 2]);
 	};
@@ -102,58 +103,58 @@ void hge::render::TerrainUnit::calculateNTBs(const int &aspect, const double &ve
 	{
 		for(j = 0; j < aspect; j++)
 		{
-			glm::vec3 nv(0.0f, 0.0f, 0.0f);
+			math::Vector3D<> nv(0.0f, 0.0f, 0.0f);
 			if(i > 0)
 			{
 				if(j > 0)
 				{
-					glm::vec3 N  = getVEC(i - 1, j    , i , j);
-					glm::vec3 W  = getVEC(i    , j - 1, i , j);
-					glm::vec3 NW = getVEC(i - 1, j - 1, i , j);
-					nv += glm::normalize(glm::cross(N , NW));
-					nv += glm::normalize(glm::cross(NW, W ));
+					math::Vector3D<> N  = getVEC(i - 1, j    , i , j);
+					math::Vector3D<> W  = getVEC(i    , j - 1, i , j);
+					math::Vector3D<> NW = getVEC(i - 1, j - 1, i , j);
+					nv += math::Vector3D<>::normalize(math::Vector3D<>::cross(N , NW));
+					nv += math::Vector3D<>::normalize(math::Vector3D<>::cross(NW, W ));
 				}
 				if(j < aspect - 1)
 				{
-					glm::vec3 N  = getVEC(i - 1, j    , i , j);
-					glm::vec3 NE = getVEC(i - 1, j + 1, i , j);
-					glm::vec3 E  = getVEC(i    , j + 1, i , j);
-					nv += glm::normalize(glm::cross(NE, N ));
-					nv += glm::normalize(glm::cross(E , NE));
+					math::Vector3D<> N  = getVEC(i - 1, j    , i , j);
+					math::Vector3D<> NE = getVEC(i - 1, j + 1, i , j);
+					math::Vector3D<> E  = getVEC(i    , j + 1, i , j);
+					nv += math::Vector3D<>::normalize(math::Vector3D<>::cross(NE, N ));
+					nv += math::Vector3D<>::normalize(math::Vector3D<>::cross(E , NE));
 				}
 			}
 			if(i < aspect - 1)
 			{
 				if(j > 0)
 				{
-					glm::vec3 S  = getVEC(i + 1, j    , i , j);
-					glm::vec3 SW = getVEC(i + 1, j - 1, i , j);
-					glm::vec3 W  = getVEC(i    , j - 1, i , j);
-					nv += glm::normalize(glm::cross(SW, S ));
-					nv += glm::normalize(glm::cross(W , SW));
+					math::Vector3D<> S  = getVEC(i + 1, j    , i , j);
+					math::Vector3D<> SW = getVEC(i + 1, j - 1, i , j);
+					math::Vector3D<> W  = getVEC(i    , j - 1, i , j);
+					nv += math::Vector3D<>::normalize(math::Vector3D<>::cross(SW, S ));
+					nv += math::Vector3D<>::normalize(math::Vector3D<>::cross(W , SW));
 				}
 				if(j < aspect - 1)
 				{
-					glm::vec3 S  = getVEC(i + 1, j    , i , j);
-					glm::vec3 E  = getVEC(i    , j + 1, i , j);
-					glm::vec3 SE = getVEC(i + 1, j + 1, i , j);
-					nv += glm::normalize(glm::cross(S , SE));
-					nv += glm::normalize(glm::cross(SE, E ));
+					math::Vector3D<> S  = getVEC(i + 1, j    , i , j);
+					math::Vector3D<> E  = getVEC(i    , j + 1, i , j);
+					math::Vector3D<> SE = getVEC(i + 1, j + 1, i , j);
+					nv += math::Vector3D<>::normalize(math::Vector3D<>::cross(S , SE));
+					nv += math::Vector3D<>::normalize(math::Vector3D<>::cross(SE, E ));
 				}
 			}
-			nv = glm::normalize(nv);
-			glm::vec3 tv = glm::normalize(glm::vec3(0.0f, 1.0f, 0.0f) - (nv * (nv.y)));
-			glm::vec3 btv = glm::cross(nv, tv);
+			nv = math::Vector3D<>::normalize(nv);
+			math::Vector3D<> tv = math::Vector3D<>::normalize(math::Vector3D<>(0.0f, 1.0f, 0.0f) - (nv * (nv.vec[1])));
+			math::Vector3D<> btv = math::Vector3D<>::cross(nv, tv);
 			vboIndex += 3;
-			vbo[vboIndex++] = nv.x;
-			vbo[vboIndex++] = nv.y;
-			vbo[vboIndex++] = nv.z;
-			vbo[vboIndex++] = tv.x;
-			vbo[vboIndex++] = tv.y;
-			vbo[vboIndex++] = tv.z;
-			vbo[vboIndex++] = btv.x;
-			vbo[vboIndex++] = btv.y;
-			vbo[vboIndex++] = btv.z;
+			vbo[vboIndex++] = nv.vec[0];
+			vbo[vboIndex++] = nv.vec[1];
+			vbo[vboIndex++] = nv.vec[2];
+			vbo[vboIndex++] = tv.vec[0];
+			vbo[vboIndex++] = tv.vec[1];
+			vbo[vboIndex++] = tv.vec[2];
+			vbo[vboIndex++] = btv.vec[0];
+			vbo[vboIndex++] = btv.vec[1];
+			vbo[vboIndex++] = btv.vec[2];
 		}
 	}
 }
@@ -169,7 +170,7 @@ hge::render::TerrainUnit::~TerrainUnit()
 	}
 }
 
-void hge::render::TerrainUnit::draw(const glm::mat4 &vp)
+void hge::render::TerrainUnit::draw(const math::Matrix4D<> &vp)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, vboBuffer);
 	shader->use();
@@ -182,7 +183,7 @@ void hge::render::TerrainUnit::draw(const glm::mat4 &vp)
 	{
 		shader->setLODNumber(i);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboBuffers[i]);
-		glDrawElements(GL_TRIANGLES, iboElements[i], GL_UNSIGNED_INT, (void *)i);
+		glDrawElements(GL_TRIANGLES, iboElements[i], GL_UNSIGNED_INT, (void *)(0));
 	}
 }
 
@@ -213,7 +214,7 @@ void hge::render::TerrainUnit::addTexture(const std::shared_ptr<texture::Texture
 	textures.push_back(texture);
 }
 
-hge::math::ModelMatrix* hge::render::TerrainUnit::getModelMatrix()
+hge::math::ModelUnit *hge::render::TerrainUnit::getModelMatrix()
 {
 	return &modelMatrix;
 }

@@ -1,7 +1,6 @@
 #ifndef HGEWHITESHADER_HPP
 #define	HGEWHITESHADER_HPP
 #include "hge-math.hpp"
-#include "hge-glfw-window.hpp"
 #include "hge-shader-unit.hpp"
 #define HGEPRINTCODELINE std::cout << "Debugging: file:" << __FILE__ << " line:" << __LINE__ << std::endl << std::flush;
 /*
@@ -23,8 +22,8 @@ namespace hge
 			///\note You must initialize OpenGL before call of this function.
 			WhiteShader();
 			~WhiteShader();
-			void setModelMatrix(const glm::mat4 &modelMatrix);
-			void setModelViewProjectionMatrix(const glm::mat4 &modelViewProjectionMatrix);
+			void setModelMatrix(const math::Matrix4D<> &modelMatrix);
+			void setModelViewProjectionMatrix(const math::Matrix4D<> &modelViewProjectionMatrix);
 			void setLODNumber(const GLuint& lodNumber);
 			void use();
 			GLuint getModelViewProjectionMatrixUniformLocation();

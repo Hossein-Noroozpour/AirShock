@@ -3,7 +3,7 @@
 #define HGEPRINTCODELINE std::cout << "Debugging: file:" << __FILE__ << " line:" << __LINE__ << std::endl << std::flush;
 hge::render::GeometryUnit::GeometryUnit
 (const std::string& id, const std::string& name):
-id(id), name(name), mvp(glm::mat4(1.0f))
+id(id), name(name), mvp(math::Matrix4D<>(1.0f))
 {
 	glGenQueries(HGEGEOMETRYNUMBEROFQUERIES, queries);
 }
@@ -99,7 +99,7 @@ hge::render::GeometryUnit::draw()
 	glEndConditionalRender();
 }
 void
-hge::render::GeometryUnit::occlusionQuery(const glm::mat4 &vp)
+hge::render::GeometryUnit::occlusionQuery(const math::Matrix4D<> &vp)
 {
 	mvp = vp * modelMatrix.getConstRotateScaleTranslateMatrix();
 	glBeginQuery(GL_ANY_SAMPLES_PASSED, queries[HGEGEOMETRYOCCLUSIONQUERYID]);
@@ -177,7 +177,7 @@ hge::render::GeometryUnit::occlusionQuery(const glm::mat4 &vp)
 #endif
 	glEndQuery(GL_ANY_SAMPLES_PASSED);
 }
-void hge::render::GeometryUnit::occlusionQueryStarter(const glm::mat4 &vp)
+void hge::render::GeometryUnit::occlusionQueryStarter(const math::Matrix4D<> &vp)
 {
 	mvp = vp * modelMatrix.getConstRotateScaleTranslateMatrix();
 	glBeginQuery(GL_ANY_SAMPLES_PASSED, queries[HGEGEOMETRYOCCLUSIONQUERYID]);
@@ -203,7 +203,7 @@ void hge::render::GeometryUnit::setTexture(const std::shared_ptr<texture::Textur
 {
 	this->texture = texture;
 }
-hge::math::ModelMatrix*
+hge::math::ModelUnit*
 hge::render::GeometryUnit::getModelMatrix()
 {
 	return &modelMatrix;

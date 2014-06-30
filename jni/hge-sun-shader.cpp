@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cassert>
 #define HGEPRINTCODELINE std::cout << "Debugging: file:" << __FILE__ << " line:" << __LINE__ << std::endl << std::flush;
-hge::shader::SunShader::SunShader(const glm::vec3 &sunDirection):
+hge::shader::SunShader::SunShader(const math::Vector3D<> &sunDirection):
 	shaderProgram(render::ShaderEngine::createProgram())
 {
 	std::string pVS(
@@ -43,13 +43,13 @@ hge::shader::SunShader::SunShader(const glm::vec3 &sunDirection):
 	hge::render::ShaderEngine::run(shaderProgram);
 	modelMatrixUniformLocation = render::ShaderEngine::getUniformLocation(std::string("m"), shaderProgram);
 	assert(modelMatrixUniformLocation != 0xFFFFFFFF);
-	glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(glm::mat4(1.0f)));
+	glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, math::Matrix4D<>(1.0f).mat);
 	modelViewProjectionMatrixUniformLocation = render::ShaderEngine::getUniformLocation(std::string("mvp"), shaderProgram);
 	assert(modelViewProjectionMatrixUniformLocation != 0xFFFFFFFF);
-	glUniformMatrix4fv(modelViewProjectionMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(glm::mat4(1.0f)));
+	glUniformMatrix4fv(modelViewProjectionMatrixUniformLocation, 1, GL_FALSE, math::Matrix4D<>(1.0f).mat);
 	sunLightDirectionUniformLocation = render::ShaderEngine::getUniformLocation(std::string("s"), shaderProgram);
 	assert(sunLightDirectionUniformLocation != 0xFFFFFFFF);
-	glUniform3fv(sunLightDirectionUniformLocation, 1, glm::value_ptr(sunDirection));
+	glUniform3fv(sunLightDirectionUniformLocation, 1, sunDirection.vec);
 	textureSamplerLocation = render::ShaderEngine::getUniformLocation(std::string("textureSampler"), shaderProgram);
 	assert(textureSamplerLocation != 0xFFFFFFFF);
 	glUniform1i(textureSamplerLocation, 0);
@@ -60,23 +60,24 @@ hge::shader::SunShader::~SunShader()
 	hge::render::ShaderEngine::endObject(fragmentShaderProgram);
 	hge::render::ShaderEngine::endProgram(shaderProgram);
 }
-void hge::shader::SunShader::setModelMatrix(const glm::mat4 &modelMatrix)
+void hge::shader::SunShader::setModelMatrix(const math::Matrix4D<> &modelMatrix)
 {
-	glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+	glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, modelMatrix.mat);
 }
-void hge::shader::SunShader::setModelViewProjectionMatrix(const glm::mat4 &modelViewProjectionMatrix)
+void hge::shader::SunShader::setModelViewProjectionMatrix(const math::Matrix4D<> &modelViewProjectionMatrix)
 {
-	glUniformMatrix4fv(modelViewProjectionMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(modelViewProjectionMatrix));
+	glUniformMatrix4fv(modelViewProjectionMatrixUniformLocation, 1, GL_FALSE, modelViewProjectionMatrix.mat);
 }
 void hge::shader::SunShader::setLODNumber(const GLuint& lodNumber)
 {
+	(void) lodNumber;
 	std::cerr << "Error this shader does not have LOD system." << std::endl;
 	HGEPRINTCODELINE
 	std::terminate();
 }
-void hge::shader::SunShader::setSunDirection(const glm::vec3 &sunDirection)
+void hge::shader::SunShader::setSunDirection(const math::Vector3D<> &sunDirection)
 {
-	glUniform3fv(sunLightDirectionUniformLocation, 1, glm::value_ptr(sunDirection));
+	glUniform3fv(sunLightDirectionUniformLocation, 1, sunDirection.vec);
 }
 void hge::shader::SunShader::use()
 {

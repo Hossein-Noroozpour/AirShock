@@ -1,7 +1,7 @@
 #ifndef HGESKYBOXSHADERUNIT_HPP
 #define HGESKYBOXSHADERUNIT_HPP
-#include "hge-shader-engine.hpp"
 #include "hge-shader-unit.hpp"
+#include <string>
 #define HGESKYBOXSHADERUINTNUMBEROFLEVELS 3
 namespace hge
 {
@@ -21,8 +21,8 @@ namespace hge
 		public:
 			SkyBoxShaderUnit(const std::string &fileName, const bool &hasGeometryShader = false);
 			virtual ~SkyBoxShaderUnit();
-			virtual void setModelMatrix(const glm::mat4 &modelMatrix);
-			virtual void setModelViewProjectionMatrix(const glm::mat4 &modelViewProjectionMatrix);
+			virtual void setModelMatrix(const math::Matrix4D<> &modelMatrix);
+			virtual void setModelViewProjectionMatrix(const math::Matrix4D<> &modelViewProjectionMatrix);
 			virtual void setLODNumber(const GLuint& lodNumber);
 			virtual void setCloudsSpeed(const float &deltaDistance);
 			virtual void use();

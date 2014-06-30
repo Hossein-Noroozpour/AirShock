@@ -1,6 +1,7 @@
 #include "hge-white-shader.hpp"
 #include <iostream>
 #include <cassert>
+#include "hge-shader-engine.hpp"
 #define HGEPRINTCODELINE std::cout << "Debugging: file:" << __FILE__ << " line:" << __LINE__ << std::endl << std::flush;
 hge::shader::WhiteShader::WhiteShader():
 	shaderProgram(render::ShaderEngine::createProgram())
@@ -34,18 +35,20 @@ hge::shader::WhiteShader::~WhiteShader()
 	hge::render::ShaderEngine::endObject(fragmentShaderProgram);
 	hge::render::ShaderEngine::endProgram(shaderProgram);
 }
-void hge::shader::WhiteShader::setModelMatrix(const glm::mat4 &modelMatrix)
+void hge::shader::WhiteShader::setModelMatrix(const math::Matrix4D<> &modelMatrix)
 {
+	(void) modelMatrix;
 	std::cerr << "Error this shader does not have model matrix." << std::endl;
 	HGEPRINTCODELINE
 	std::terminate();
 }
-void hge::shader::WhiteShader::setModelViewProjectionMatrix(const glm::mat4 &modelViewProjectionMatrix)
+void hge::shader::WhiteShader::setModelViewProjectionMatrix(const math::Matrix4D<> &modelViewProjectionMatrix)
 {
-	glUniformMatrix4fv(modelViewProjectionMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(modelViewProjectionMatrix));
+	glUniformMatrix4fv(modelViewProjectionMatrixUniformLocation, 1, GL_FALSE, modelViewProjectionMatrix.mat);
 }
 void hge::shader::WhiteShader::setLODNumber(const GLuint& lodNumber)
 {
+	(void) lodNumber;
 	std::cerr << "Error this shader does not have LOD system." << std::endl;
 	HGEPRINTCODELINE
 	std::terminate();

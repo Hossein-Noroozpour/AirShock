@@ -4,9 +4,9 @@
 #include <cassert>
 #define HGEPRINTCODELINE std::cout << "Debugging: file:" << __FILE__ << " line:" << __LINE__ << std::endl << std::flush;
 hge::shader::TotalShader::TotalShader():
-	modelMatrix(glm::mat4(1.0f)),
-	modelViewProjectionMatrix(glm::mat4(1.0f)),
-	sunLightDirection(glm::vec3(1.0f)),
+	modelMatrix(math::Matrix4D<>(1.0f)),
+	modelViewProjectionMatrix(math::Matrix4D<>(1.0f)),
+	sunLightDirection(math::Vector3D<>(1.0f)),
 	shadingMode(fullShadingMode)
 {
 	std::string pVS(
@@ -92,9 +92,9 @@ hge::shader::TotalShader::TotalShader():
 			std::string("shadingMode"), shaderProgram);
 	assert(shadingModeUniformLocation != 0xFFFFFFFF);
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	glUniformMatrix4fv(modelMatrixUniformLoaction, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-	glUniformMatrix4fv(modelViewProjectionMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(modelViewProjectionMatrix));
-	glUniform3fv(sunLightDirectionUniformLocation, 1, glm::value_ptr(sunLightDirection));
+	glUniformMatrix4fv(modelMatrixUniformLoaction, 1, GL_FALSE, modelMatrix.mat);
+	glUniformMatrix4fv(modelViewProjectionMatrixUniformLocation, 1, GL_FALSE, modelViewProjectionMatrix.mat);
+	glUniform3fv(sunLightDirectionUniformLocation, 1, sunLightDirection.vec);
 	glUniform1i(mainTextureSamplerLocation, 0);
 	glUniform1ui(shadingModeUniformLocation, 0);
 	//Full Shading Mode
@@ -112,23 +112,23 @@ hge::shader::TotalShader::~TotalShader()
 	hge::render::ShaderEngine::endObject(fragmentShader);
 	hge::render::ShaderEngine::endProgram(shaderProgram);
 }
-void hge::shader::TotalShader::setModelMatrix(const glm::mat4& m)
+void hge::shader::TotalShader::setModelMatrix(const math::Matrix4D<>& m)
 {
 	modelMatrix = m;
 	//???????????????????????????????????????????????????????????????????????????????????????????
-	glUniformMatrix4fv(modelMatrixUniformLoaction, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+	glUniformMatrix4fv(modelMatrixUniformLoaction, 1, GL_FALSE, modelMatrix.mat);
 }
-void hge::shader::TotalShader::setModelViewProjectionMatrix(const glm::mat4& m)
+void hge::shader::TotalShader::setModelViewProjectionMatrix(const math::Matrix4D<>& m)
 {
 	modelViewProjectionMatrix = m;
 	//???????????????????????????????????????????????????????????????????????????????????????????
-	glUniformMatrix4fv(modelViewProjectionMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(modelViewProjectionMatrix));
+	glUniformMatrix4fv(modelViewProjectionMatrixUniformLocation, 1, GL_FALSE, modelViewProjectionMatrix.mat);
 }
-void hge::shader::TotalShader::changeSunLightDirection(const glm::vec3 &s)
+void hge::shader::TotalShader::changeSunLightDirection(const math::Vector3D<> &s)
 {
 	sunLightDirection = s;
 	//?????????????????????????????????????????????????????????????????????
-	glUniform3fv(sunLightDirectionUniformLocation, 1, glm::value_ptr(sunLightDirection));
+	glUniform3fv(sunLightDirectionUniformLocation, 1, sunLightDirection.vec);
 }
 void hge::shader::TotalShader::use()
 {

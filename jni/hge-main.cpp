@@ -23,4 +23,11 @@ extern "C"
 #ifdef __cplusplus
 }
 #endif // End of __cplusplus
-#endif // End of ANDROID
+#else // End of ANDROID
+int main(int argc, char *argv[])
+{
+	(void)argc;
+	(void)argv;
+	return 0;
+}
+#endif

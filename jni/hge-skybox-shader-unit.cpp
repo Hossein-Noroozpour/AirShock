@@ -1,7 +1,8 @@
 #include "hge-skybox-shader-unit.hpp"
+#include "hge-shader-engine.hpp"
 #include <iostream>
+#include <cassert>
 #define HGEPRINTCODELINE std::cout << "Debugging: file:" << __FILE__ << " line:" << __LINE__ << std::endl << std::flush;
-
 hge::shader::SkyBoxShaderUnit::SkyBoxShaderUnit(const std::string &fileName, const bool &hasGeometryShader)
 {
 	this->hasGeometryShader = hasGeometryShader;
@@ -25,7 +26,7 @@ hge::shader::SkyBoxShaderUnit::SkyBoxShaderUnit(const std::string &fileName, con
 	modelViewProjectionMatrixUniformLocation =
 			render::ShaderEngine::getUniformLocation(std::string("mvpm"), shaderProgram);
 	assert(modelViewProjectionMatrixUniformLocation != 0xFFFFFFFF);
-	glUniformMatrix4fv(modelViewProjectionMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(glm::mat4(1.0f)));
+	glUniformMatrix4fv(modelViewProjectionMatrixUniformLocation, 1, GL_FALSE, math::Matrix4D<>(1.0f).mat);
 
 	uvMoveUniformLocation =	render::ShaderEngine::getUniformLocation(std::string("uvMove"), shaderProgram);
 	assert(uvMoveUniformLocation != 0xFFFFFFFF);
@@ -43,21 +44,23 @@ hge::shader::SkyBoxShaderUnit::~SkyBoxShaderUnit()
 	hge::render::ShaderEngine::endProgram(shaderProgram);
 }
 
-void hge::shader::SkyBoxShaderUnit::setModelMatrix(const glm::mat4 &modelMatrix)
+void hge::shader::SkyBoxShaderUnit::setModelMatrix(const math::Matrix4D<> &modelMatrix)
 {
+	(void) modelMatrix;
 	std::cerr << "This shader does not have model matrix." << std::endl;
 	HGEPRINTCODELINE
 	std::terminate();
 }
 
-void hge::shader::SkyBoxShaderUnit::setModelViewProjectionMatrix(const glm::mat4 &modelViewProjectionMatrix)
+void hge::shader::SkyBoxShaderUnit::setModelViewProjectionMatrix(const math::Matrix4D<> &modelViewProjectionMatrix)
 {
 	glUniformMatrix4fv(modelViewProjectionMatrixUniformLocation, 1, GL_FALSE,
-			glm::value_ptr(modelViewProjectionMatrix));
+			modelViewProjectionMatrix.mat);
 }
 
 void hge::shader::SkyBoxShaderUnit::setLODNumber(const GLuint& lodNumber)
 {
+	(void)lodNumber;
 	std::cerr << "This shader does not have LOD system." << std::endl;
 	HGEPRINTCODELINE
 	std::terminate();

@@ -1,7 +1,7 @@
 #include "hge-skybox-unit.hpp"
 hge::render::SkyBoxUnit::SkyBoxUnit(const std::shared_ptr<MeshUnit> &mesh):
 	mesh(mesh),
-	modelMatrix(glm::mat4(100000000000000000000000000000.0f)),
+	modelMatrix(math::Matrix4D<>(100000000000000000000000000000.0f)),
 	lastDrawn(std::chrono::system_clock::now())
 {
 }
@@ -16,7 +16,7 @@ void hge::render::SkyBoxUnit::setTexture(const std::shared_ptr<texture::TextureU
 	this->texture = texture;
 }
 
-void hge::render::SkyBoxUnit::draw(const glm::mat4 &vp)
+void hge::render::SkyBoxUnit::draw(const math::Matrix4D<> &vp)
 {
 	auto mvp = vp * modelMatrix;
 	mesh->bindVBO();

@@ -15,8 +15,8 @@ hge::render::SceneUnit::SceneUnit():
 	hasTerrain(false),
 	hasGeometry(false)
 {
-	cameras.push_back(std::shared_ptr<math::CameraMatrix>(new math::CameraMatrix()));
-	perspectives.push_back(std::shared_ptr<math::PerspectiveMatrix>(new math::PerspectiveMatrix()));
+	cameras.push_back(std::shared_ptr<math::CameraUnit>(new math::CameraUnit()));
+	perspectives.push_back(std::shared_ptr<math::PerspectiveUnit>(new math::PerspectiveUnit()));
 }
 void hge::render::SceneUnit::addGeometry(const std::shared_ptr<GeometryUnit>& geometry)
 {
@@ -25,7 +25,7 @@ void hge::render::SceneUnit::addGeometry(const std::shared_ptr<GeometryUnit>& ge
 	geometry->setShader(defaultShader);
 	geometry->setTexture(defaultTexture);
 	geometry->getModelMatrix()->scale(1000.0f);
-	geometry->getModelMatrix()->translate(glm::vec3(0.0f, 0.0f, 10.0f));
+	geometry->getModelMatrix()->translate(math::Vector3D<>(0.0f, 0.0f, 10.0f));
 	geometries.push_back(geometry);
 }
 void
@@ -78,8 +78,7 @@ void hge::render::SceneUnit::setTerrain(const std::shared_ptr<TerrainUnit>& t)
 	hasTerrain = true;
 	terrain = t;
 }
-std::shared_ptr<hge::math::CameraMatrix>
-hge::render::SceneUnit::getCamera(const unsigned int& cameraIndex)
+std::shared_ptr<hge::math::CameraUnit> hge::render::SceneUnit::getCamera(const unsigned int& cameraIndex)
 {
 	return cameras[cameraIndex];
 }

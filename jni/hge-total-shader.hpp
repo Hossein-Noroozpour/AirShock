@@ -29,9 +29,9 @@ namespace hge
 			GLuint fragmentShader;
 			GLuint shaderProgram;
 
-			glm::mat4 modelMatrix;
-			glm::mat4 modelViewProjectionMatrix;
-			glm::vec3 sunLightDirection;
+			math::Matrix4D<> modelMatrix;
+			math::Matrix4D<> modelViewProjectionMatrix;
+			math::Vector3D<> sunLightDirection;
 
 			ShadingMode shadingMode;
 
@@ -41,9 +41,9 @@ namespace hge
 			TotalShader();
 			~TotalShader();
 
-			void setModelMatrix(const glm::mat4 &modelMatrix);
-			void setModelViewProjectionMatrix(const glm::mat4 &modelViewProjectionMatrix);
-			void changeSunLightDirection(const glm::vec3 &sun_dir);
+			void setModelMatrix(const math::Matrix4D<> &modelMatrix);
+			void setModelViewProjectionMatrix(const math::Matrix4D<> &modelViewProjectionMatrix);
+			void changeSunLightDirection(const math::Vector3D<> &sun_dir);
 
 			void use();
 

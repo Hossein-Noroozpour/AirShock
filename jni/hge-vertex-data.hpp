@@ -1,6 +1,11 @@
 #ifndef HGEVERTEXDATA_HPP
 #define	HGEVERTEXDATA_HPP
-#include "hge-glfw-window.hpp"
+#ifdef ANDROID
+#include <GLES3/gl3.h>
+#else
+#include <GL/glew.h>
+#include <GL/gl.h>
+#endif
 #include <vector>
 namespace hge
 {
