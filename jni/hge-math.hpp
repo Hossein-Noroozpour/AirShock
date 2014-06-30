@@ -5,7 +5,11 @@ namespace hge
 {
 	namespace math
 	{
-		template<typename element_type=float>
+		template<typename element_type=float> class Vector3D;
+		template<typename element_type=float> class Vector4D;
+		template<typename element_type=float> class Matrix4D;
+
+		template<typename element_type>
 		class Vector3D
 		{
 		public:
@@ -21,6 +25,18 @@ namespace hge
 				vec[0] = e;
 				vec[1] = e;
 				vec[2] = e;
+			}
+			Vector3D(const Vector3D<element_type> &v)
+			{
+				vec[0] = v.vec[0];
+				vec[1] = v.vec[1];
+				vec[2] = v.vec[2];
+			}
+			void operator=(const Vector3D<element_type> &v)
+			{
+				vec[0] = v.vec[0];
+				vec[1] = v.vec[1];
+				vec[2] = v.vec[2];
 			}
 			element_type dot(const Vector3D &another) const
 			{
@@ -48,30 +64,34 @@ namespace hge
 			}
 			void normalize()
 			{
-				element_type len = (element_type)sqrtl((long double)(vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2]));
+				element_type len = (element_type)sqrt((double)(vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2]));
 				vec[0] /= len;
 				vec[1] /= len;
 				vec[2] /= len;
 			}
 			static Vector3D<element_type> normalize(const Vector3D<element_type> &a)
 			{
-				element_type len = (element_type)sqrtl((long double)(
+				element_type len = (element_type)sqrt((double)(
 						a.vec[0] * a.vec[0] + a.vec[1] * a.vec[1] + a.vec[2] * a.vec[2]));
 				return Vector3D<element_type>(a.vec[0] / len, a.vec[1] / len, a.vec[2] / len);
 			}
-			Vector3D<element_type> operator+(const Vector3D<element_type> &a)
+			Vector3D<element_type> operator+(const Vector3D<element_type> &a) const
 			{
 				return Vector3D<element_type>(vec[0] + a.vec[0], vec[1] + a.vec[1], vec[2] + a.vec[2]);
 			}
-			Vector3D<element_type> operator-(const Vector3D<element_type> &a)
+			Vector3D<element_type> operator-(const Vector3D<element_type> &a) const
 			{
 				return Vector3D<element_type>(vec[0] - a.vec[0], vec[1] - a.vec[1], vec[2] - a.vec[2]);
 			}
-			Vector3D<element_type> operator*(const Vector3D<element_type> &a)
+			Vector3D<element_type> operator*(const Vector3D<element_type> &a) const
 			{
 				return Vector3D<element_type>(vec[0] * a.vec[0], vec[1] * a.vec[1], vec[2] * a.vec[2]);
 			}
-			Vector3D<element_type> operator/(const Vector3D<element_type> &a)
+			Vector3D<element_type> operator*(const element_type &a) const
+			{
+				return Vector3D<element_type>(vec[0] * a, vec[1] * a, vec[2] * a);
+			}
+			Vector3D<element_type> operator/(const Vector3D<element_type> &a) const
 			{
 				return Vector3D<element_type>(vec[0] / a.vec[0], vec[1] / a.vec[1], vec[2] / a.vec[2]);
 			}
@@ -99,9 +119,50 @@ namespace hge
 				vec[1] /= a.vec[1];
 				vec[2] /= a.vec[2];
 			}
+			Vector3D<element_type> operator-() const
+			{
+				return Vector3D<element_type>(vec[0], vec[1], vec[2]);
+			}
+			Matrix4D<element_type> createRotationMatrix(const element_type &degree) const
+			{
+				element_type sinus = element_type(sin(degree));
+				element_type cosinus = element_type(cos(degree));
+				element_type oneminuscos = element_type(1.0 - cosinus);
+				Vector3D<element_type> w = Vector3D<element_type>::normalize(*this);
+				element_type wx2 = w.vec[0] * w.vec[0];
+				element_type wxy = w.vec[0] * w.vec[1];
+				element_type wxz = w.vec[0] * w.vec[2];
+				element_type wy2 = w.vec[1] * w.vec[1];
+				element_type wyz = w.vec[1] * w.vec[2];
+				element_type wz2 = w.vec[2] * w.vec[2];
+				element_type wxyonemincos = wxy * oneminuscos;
+				element_type wxzonemincos = wxz * oneminuscos;
+				element_type wyzonemincos = wyz * oneminuscos;
+				element_type wxsin = w.vec[0] * sinus;
+				element_type wysin = w.vec[1] * sinus;
+				element_type wzsin = w.vec[2] * sinus;
+				Matrix4D<element_type> m;
+				m.mat[0 ] = cosinus + (wx2 * oneminuscos);
+				m.mat[1 ] = wxyonemincos - wzsin;
+				m.mat[2 ] = wysin + wxzonemincos;
+				m.mat[3 ] = element_type(0.0);
+				m.mat[4 ] = wzsin + wxyonemincos;
+				m.mat[5 ] = cosinus + (wy2 * oneminuscos);
+				m.mat[6 ] = wyzonemincos - wxsin;
+				m.mat[7 ] = element_type(0.0);
+				m.mat[8 ] = wxzonemincos - wysin;
+				m.mat[9 ] = wxsin + wyzonemincos;
+				m.mat[10] = cosinus + (wz2 * oneminuscos);
+				m.mat[11] = element_type(0.0);
+				m.mat[12] = element_type(0.0);
+				m.mat[13] = element_type(0.0);
+				m.mat[14] = element_type(0.0);
+				m.mat[15] = element_type(1.0);
+				return m;
+			}
 		};
 
-		template<typename element_type=float>
+		template<typename element_type>
 		class Vector4D
 		{
 		public:
@@ -150,7 +211,7 @@ namespace hge
 			}
 			void normalize()
 			{
-				element_type len = (element_type)sqrtl((long double)(
+				element_type len = (element_type)sqrt((double)(
 						vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2] + vec[3] * vec[3]));
 				vec[0] /= len;
 				vec[1] /= len;
@@ -159,13 +220,13 @@ namespace hge
 			}
 			static Vector4D<element_type> normalize(const Vector4D<element_type> &a)
 			{
-				element_type len = (element_type)sqrtl((long double)(
+				element_type len = (element_type)sqrt((double)(
 						a.vec[0] * a.vec[0] + a.vec[1] * a.vec[1] + a.vec[2] * a.vec[2] + a.vec[3] * a.vec[3]));
 				return Vector4D<element_type>(a.vec[0] / len, a.vec[1] / len, a.vec[2] / len, a.vec[3] / len);
 			}
 		};
 
-		template<typename element_type=float>
+		template<typename element_type>
 		class Matrix4D
 		{
 		public:
@@ -191,14 +252,23 @@ namespace hge
 			}
 			Matrix4D()
 			{}
+			Matrix4D(const Matrix4D<element_type> &m)
+			{
+				for(int i = 0; i < 16; i++)
+				{
+					mat[i] = m.mat[i];
+				}
+			}
 			/// WARNING: It is not tested yet!
 			static Matrix4D<element_type> lookAt(
 					const Vector3D<element_type> &position,
 					const Vector3D<element_type> &target,
 					const Vector3D<element_type> &up)
 			{
-				Vector3D<element_type> z = (target - position).normalize();
-				Vector3D<element_type> x = up.cross(z).normalize();
+				Vector3D<element_type> z = (target - position);
+				z.normalize();
+				Vector3D<element_type> x = up.cross(z);
+				x.normalize();
 				Vector3D<element_type> y = z.cross(x);
 				Matrix4D<element_type> m;
 				m.mat[0 ] = x.vec[0];
@@ -218,6 +288,93 @@ namespace hge
 				m.mat[14] = element_type(0.0);
 				m.mat[15] = element_type(1.0);
 				return m;
+			}
+			static Matrix4D<element_type> translate(const Matrix4D<element_type> &m, const Vector3D<element_type> &v)
+			{
+				Matrix4D<element_type> r;
+				for(unsigned int i = 0; i < 16; i++)
+				{
+					r.mat[i] = m.mat[i];
+				}
+				r.mat[3 ] += v.vec[0];
+				r.mat[7 ] += v.vec[1];
+				r.mat[11] += v.vec[2];
+				return r;
+			}
+			static Matrix4D<element_type> translate(const Matrix4D<element_type> &m, const Vector4D<element_type> &v)
+			{
+				Matrix4D<element_type> r;
+				for(unsigned int i = 0; i < 16; i++)
+				{
+					r.mat[i] = m.mat[i];
+				}
+				r.mat[3 ] += v.vec[0];
+				r.mat[7 ] += v.vec[1];
+				r.mat[11] += v.vec[2];
+				return r;
+			}
+			void translate(const Vector3D<element_type> &v)
+			{
+				mat[3 ] += v.vec[0];
+				mat[7 ] += v.vec[1];
+				mat[11] += v.vec[2];
+			}
+			void translate(const Vector4D<element_type> &v)
+			{
+				mat[3 ] += v.vec[0];
+				mat[7 ] += v.vec[1];
+				mat[11] += v.vec[2];
+			}
+			Vector3D<element_type> operator*(const Vector3D<element_type> &v)
+			{
+				return Vector3D<element_type>(mat[0] * v.vec[0] + mat[1] * v.vec[1] + mat[2 ] * v.vec[2] + mat[3 ],
+											  mat[4] * v.vec[0] + mat[5] * v.vec[1] + mat[6 ] * v.vec[2] + mat[7 ],
+											  mat[8] * v.vec[0] + mat[9] * v.vec[1] + mat[10] * v.vec[2] + mat[11]);
+			}
+			Vector4D<element_type> operator*(const Vector4D<element_type> &v)
+			{
+				return Vector4D<element_type>(mat[0 ] * v.vec[0] + mat[1 ] * v.vec[1] + mat[2 ] * v.vec[2] + mat[3 ] * v.vec[3],
+											  mat[4 ] * v.vec[0] + mat[5 ] * v.vec[1] + mat[6 ] * v.vec[2] + mat[7 ] * v.vec[3],
+											  mat[8 ] * v.vec[0] + mat[9 ] * v.vec[1] + mat[10] * v.vec[2] + mat[11] * v.vec[3],
+											  mat[12] * v.vec[0] + mat[13] * v.vec[1] + mat[14] * v.vec[2] + mat[15] * v.vec[3]);
+			}
+			Matrix4D<element_type> operator*(const Matrix4D<element_type> &m)
+			{
+				Matrix4D<element_type> r;
+				for(int i = 0, ri = 0; i < 16; i += 4)
+				{
+					for(int j = 0; j < 4; j++, ri++)
+					{
+						r.mat[ri] = mat[i    ] * m.mat[j     ] +
+									mat[i + 1] * m.mat[j + 4 ] +
+									mat[i + 2] * m.mat[j + 8 ] +
+									mat[i + 3] * m.mat[j + 12];
+					}
+				}
+				return r;
+//				r.mat[0 ] = mat[0] * m.mat[0] + mat[1] * m.mat[4] + mat[2] * m.mat[8 ] + mat[3] * m.mat[12];
+//				r.mat[1 ] = mat[0] * m.mat[1] + mat[1] * m.mat[5] + mat[2] * m.mat[9 ] + mat[3] * m.mat[13];
+//				r.mat[2 ] = mat[0] * m.mat[2] + mat[1] * m.mat[6] + mat[2] * m.mat[10] + mat[3] * m.mat[14];
+//				r.mat[3 ] = mat[0] * m.mat[3] + mat[1] * m.mat[7] + mat[2] * m.mat[11] + mat[3] * m.mat[15];
+//				r.mat[4 ] = mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[];
+//				r.mat[5 ] = mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[];
+//				r.mat[6 ] = mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[];
+//				r.mat[7 ] = mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[];
+//				r.mat[8 ] = mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[];
+//				r.mat[9 ] = mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[];
+//				r.mat[10] = mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[];
+//				r.mat[11] = mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[];
+//				r.mat[12] = mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[];
+//				r.mat[13] = mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[];
+//				r.mat[14] = mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[];
+//				r.mat[15] = mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[] + mat[] * m.mat[];
+			}
+			void operator=(const Matrix4D<element_type> &m)
+			{
+				for(int i = 0; i < 16; i++)
+				{
+					mat[i] = m.mat[i];
+				}
 			}
 		};
 	}

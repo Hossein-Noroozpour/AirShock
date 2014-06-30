@@ -19,95 +19,132 @@ namespace hge
 		void CameraUnit::translate(const Vector3D<> &vec)
 		{
 			cmrLoc -= vec;
-			viewM = glm::translate(viewM, -vec);
+			viewM.translate(-vec);
 		}
-		/// \caution unknown issue maybe exist
+		/// WARNING: Unknown issue maybe exist
 		void CameraUnit::move(const Vector3D<> &vec)
 		{
 			cmrLoc = vec;
-			viewM = glm::translate(rotsclM, vec);
+			viewM = Matrix4D<>::translate(rotsclM, vec);
 		}
 		void CameraUnit::rotateLocalX(const float &rad)
 		{
-			cmrY = glm::rotate(cmrY, rad, cmrX);
-			cmrZ = glm::rotate(cmrZ, rad, cmrX);
-			rotsclM = glm::rotate(rotsclM,-rad, cmrX);//!!!!!!!!!!!!!
-			viewM = glm::translate(rotsclM, -cmrLoc);
+			Matrix4D<> rot = cmrX.createRotationMatrix(-rad);
+			cmrY = rot * cmrY;
+			cmrZ = rot * cmrZ;
+			rotsclM = rot * rotsclM;
+			viewM = rotsclM;
+			viewM.translate(-cmrLoc);
 		}
 		void CameraUnit::rotateLocalY(const float &rad)
 		{
-			cmrX = glm::rotate(cmrX, rad, cmrY);
-			cmrZ = glm::rotate(cmrZ, rad, cmrY);
-			rotsclM = glm::rotate(rotsclM, -rad, cmrY);//!!!!!!!!!!!!!!1
-			viewM = glm::translate(rotsclM,-cmrLoc);
+			Matrix4D<> rot = cmrY.createRotationMatrix(-rad);
+			cmrX = rot * cmrX;
+			cmrZ = rot * cmrZ;
+			rotsclM = rot * rotsclM;
+			viewM = rotsclM;
+			viewM.translate(-cmrLoc);
 		}
 		void CameraUnit::rotateLocalZ(const float &rad)
 		{
-			cmrY = glm::rotate(cmrY, rad, cmrZ);
-			cmrX = glm::rotate(cmrX, rad, cmrZ);
-			rotsclM = glm::rotate(rotsclM, -rad, cmrZ);//!!!!!!!!!!!!!!1
-			viewM = glm::translate(rotsclM,-cmrLoc);
+			Matrix4D<> rot = cmrZ.createRotationMatrix(-rad);
+			cmrX = rot * cmrX;
+			cmrY = rot * cmrY;
+			rotsclM = rot * rotsclM;
+			viewM = rotsclM;
+			viewM.translate(-cmrLoc);
 		}
 		void CameraUnit::rotateLocal(const float &rad, const Vector3D<> &vec)
 		{
-			cmrX = glm::rotate(cmrX,-rad, vec);
-			cmrY = glm::rotate(cmrY,-rad, vec);
-			cmrZ = glm::rotate(cmrZ,-rad, vec);
-			rotsclM = glm::rotate(rotsclM, -rad, vec);//!!!!!!!!!!!!!!!!!11
-			viewM = glm::translate(rotsclM, cmrLoc);
+			Matrix4D<> rot = vec.createRotationMatrix(-rad);
+			cmrX = rot * cmrX;
+			cmrY = rot * cmrY;
+			cmrZ = rot * cmrZ;
+			rotsclM = rot * rotsclM;
+			viewM = rotsclM;
+			viewM.translate(-cmrLoc);
 		}
 		void CameraUnit::rotateGlobalX(const float &rad)
 		{
-			cmrX = glm::rotate(cmrX, -rad, Vector3D<>(1.0f, 0.0f, 0.0f));
-			cmrY = glm::rotate(cmrY, -rad, Vector3D<>(1.0f, 0.0f, 0.0f));
-			cmrZ = glm::rotate(cmrZ, -rad, Vector3D<>(1.0f, 0.0f, 0.0f));
-			rotsclM = glm::rotate(rotsclM, rad, Vector3D<>(1.0f, 0.0f, 0.0f));//!!!!!!!!!!!!
-			viewM = glm::translate(rotsclM, cmrLoc);
+			Matrix4D<> rot = Vector3D<>(1.0f, 0.0f, 0.0f).createRotationMatrix(-rad);
+			cmrX = rot * cmrX;
+			cmrY = rot * cmrY;
+			cmrZ = rot * cmrZ;
+			rotsclM = rot * rotsclM;
+			viewM = rotsclM;
+			viewM.translate(-cmrLoc);
 		}
 		void CameraUnit::rotateGlobalY(const float &rad)
 		{
-			cmrX = glm::rotate(cmrX,-rad, Vector3D<>(0.0f, 1.0f, 0.0f));
-			cmrY = glm::rotate(cmrY,-rad, Vector3D<>(0.0f, 1.0f, 0.0f));
-			cmrZ = glm::rotate(cmrZ,-rad, Vector3D<>(0.0f, 1.0f, 0.0f));
-			rotsclM = glm::rotate(rotsclM, rad, Vector3D<>(0.0f, 1.0f, 0.0f));//!!!!!!!!!!!!
-			viewM = glm::translate(rotsclM, cmrLoc);
+			Matrix4D<> rot = Vector3D<>(0.0f, 1.0f, 0.0f).createRotationMatrix(-rad);
+			cmrX = rot * cmrX;
+			cmrY = rot * cmrY;
+			cmrZ = rot * cmrZ;
+			rotsclM = rot * rotsclM;
+			viewM = rotsclM;
+			viewM.translate(-cmrLoc);
 		}
 		void CameraUnit::rotateGlobalZ(const float &rad)
 		{
-			cmrX = glm::rotate(cmrX,-rad, Vector3D<>(0.0f, 0.0f, 1.0f));
-			cmrY = glm::rotate(cmrY,-rad, Vector3D<>(0.0f, 0.0f, 1.0f));
-			cmrZ = glm::rotate(cmrZ,-rad, Vector3D<>(0.0f, 0.0f, 1.0f));
-			rotsclM = glm::rotate(rotsclM, rad, Vector3D<>(0.0f, 0.0f, 1.0f));//!!!!!!!!!!!!
-			viewM = glm::translate(rotsclM, -cmrLoc);
+			Matrix4D<> rot = Vector3D<>(0.0f, 0.0f, 1.0f).createRotationMatrix(-rad);
+			cmrX = rot * cmrX;
+			cmrY = rot * cmrY;
+			cmrZ = rot * cmrZ;
+			rotsclM = rot * rotsclM;
+			viewM = rotsclM;
+			viewM.translate(-cmrLoc);
 		}
 		void CameraUnit::rotateTotal(const float &rad, const Vector3D<> &vec)
 		{
-			cmrX    = glm::rotate(cmrX   , rad, vec);
-			cmrY    = glm::rotate(cmrY   , rad, vec);
-			cmrZ    = glm::rotate(cmrZ   , rad, vec);
-			cmrLoc  = glm::rotate(cmrLoc , -rad, vec);//!!!!!!!!!!!
-			rotsclM = glm::rotate(rotsclM, -rad, vec);//!!!!!!!!!!!!!
-			viewM   = glm::rotate(viewM  , -rad, vec);//!!!!!!!!!!
+			Matrix4D<> rot = vec.createRotationMatrix(-rad);
+			cmrX    = rot * cmrX;
+			cmrY    = rot * cmrY;
+			cmrZ    = rot * cmrZ;
+			cmrLoc  = rot * cmrLoc;
+			rotsclM = rot * rotsclM;
+			viewM   = rot * viewM;
 		}
 		void CameraUnit::scaleX(const float &x)
 		{
-			rotsclM = glm::scale(rotsclM, Vector3D<>(x, 0.0f, 0.0f));
-			viewM   = glm::translate(rotsclM, cmrLoc);
+			for(unsigned int i = 0; i < 3; i++)
+			{
+				rotsclM.mat[i] *= x;
+				viewM.mat[i]   *= x;
+			}
 		}
 		void CameraUnit::scaleY(const float &y)
 		{
-			rotsclM = glm::scale(rotsclM, Vector3D<>(0.0f, y, 0.0f));
-			viewM   = glm::translate(rotsclM, cmrLoc);
+			for(unsigned int i = 4; i < 7; i++)
+			{
+				rotsclM.mat[i] *= y;
+				viewM.mat[i]   *= y;
+			}
 		}
 		void CameraUnit::scaleZ(const float &z)
 		{
-			rotsclM = glm::scale(rotsclM, Vector3D<>(0.0f, 0.0f, z));
-			viewM   = glm::translate(rotsclM, cmrLoc);
+			for(unsigned int i = 8; i < 11; i++)
+			{
+				rotsclM.mat[i] *= z;
+				viewM.mat[i]   *= z;
+			}
 		}
 		void CameraUnit::scale(const float &x, const float &y, const float &z)
 		{
-			rotsclM = glm::scale(rotsclM, Vector3D<>(x, y, z));
-			viewM   = glm::translate(rotsclM, cmrLoc);
+			for(unsigned int i = 0; i < 3; i++)
+			{
+				rotsclM.mat[i] *= x;
+				viewM.mat[i]   *= x;
+			}
+			for(unsigned int i = 4; i < 7; i++)
+			{
+				rotsclM.mat[i] *= y;
+				viewM.mat[i]   *= y;
+			}
+			for(unsigned int i = 8; i < 11; i++)
+			{
+				rotsclM.mat[i] *= z;
+				viewM.mat[i]   *= z;
+			}
 		}
 		const Matrix4D<> &CameraUnit::getMatrix()
 		{
@@ -123,15 +160,15 @@ namespace hge
 		}
 		void CameraUnit::moveForward(const float &spd)
 		{
-			auto vec = cmrZ * spd;
+			Vector3D<> vec = cmrZ * spd;
 			cmrLoc -= vec;
-			viewM = glm::translate(viewM, vec);
+			viewM.translate(vec);
 		}
 		void CameraUnit::moveSideward(const float& spd)
 		{
-			auto vec = cmrX * spd;
+			Vector3D<> vec = cmrX * spd;
 			cmrLoc -= vec;
-			viewM = glm::translate(viewM, vec);
+			viewM.translate(vec);
 		}
 	}
 }
