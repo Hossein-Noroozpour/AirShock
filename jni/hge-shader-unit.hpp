@@ -14,7 +14,6 @@ namespace hge
 		class ShaderUnit
 		{
 		public:
-			//virtual ~ShaderUnit() = 0;
 			virtual void setModelMatrix(const math::Matrix4D<> &modelMatrix) = 0;
 			virtual void setModelViewProjectionMatrix(const math::Matrix4D<> &modelViewProjectionMatrix) = 0;
 			virtual void setLODNumber(const GLuint& lodNumber) = 0;

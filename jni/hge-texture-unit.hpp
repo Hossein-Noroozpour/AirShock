@@ -5,9 +5,9 @@
 #else
 #include <GL/glew.h>
 #include <GL/gl.h>
+#include <FreeImage.h>
 #endif
 #include <string>
-#include <FreeImage.h>
 namespace hge
 {
 	namespace texture
@@ -24,4 +24,4 @@ namespace hge
 		};
 	}
 }
-#endif	/* TEXTURE_H */
+#endif
