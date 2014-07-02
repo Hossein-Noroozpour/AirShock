@@ -15,8 +15,11 @@ namespace hge
 		class TextureUnit
 		{
 		public:
+#ifdef ANDROID
+#else
 			TextureUnit(GLenum TextureTarget, const std::string& FileName);
 			bool load();
+#endif
 			void bind(GLenum TextureUnit);
 		private:
 			GLenum m_textureTarget;

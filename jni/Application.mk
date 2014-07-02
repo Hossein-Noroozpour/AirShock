@@ -5,4 +5,5 @@ APP_CPPFLAGS += -std=c++11
 #APP_CPPFLAGS := -std=gnu++11
 APP_ABI := armeabi-v7a armeabi x86 mips
 APP_OPTIM := release
-APP_STL := stlport_shared
+#APP_STL := stlport_shared
+APP_STL := c++_static
