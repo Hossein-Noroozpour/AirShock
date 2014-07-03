@@ -11,13 +11,14 @@ hge::shader::SkyBoxShaderUnit::SkyBoxShaderUnit(const std::string &fileName, con
 
 	auto pVS = render::ShaderEngine::readIntireFile(fileName + ".vertexShader");
 	vertexShaderProgram = render::ShaderEngine::addShaderToProgram(pVS, GL_VERTEX_SHADER, shaderProgram);
-
+#ifdef ANDROID
+#else
 	if(hasGeometryShader)
 	{
 		auto pGS = render::ShaderEngine::readIntireFile(fileName + ".geometryShader");
 		geometryShaderProgram = render::ShaderEngine::addShaderToProgram(pGS, GL_GEOMETRY_SHADER, shaderProgram);
 	}
-
+#endif
 	auto pFS = render::ShaderEngine::readIntireFile(fileName + ".fragmentShader");
 	fragmentShaderProgram = render::ShaderEngine::addShaderToProgram(pFS, GL_FRAGMENT_SHADER, shaderProgram);
 

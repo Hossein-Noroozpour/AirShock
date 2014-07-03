@@ -19,7 +19,10 @@ hge::shader::TerrainSunShader::TerrainSunShader():
 	std::cout << "Vertext shader compiled." << std::endl;
 	HGEPRINTCODELINE
 #endif
+#ifdef ANDROID
+#else
 	geometryShaderProgram = render::ShaderEngine::addShaderToProgram(pGS, GL_GEOMETRY_SHADER, shaderProgram);
+#endif
 #ifdef HGETERRAINSUNSHADERDEBUGMODE
 	std::cout << "Geometry shader compiled." << std::endl;
 	HGEPRINTCODELINE

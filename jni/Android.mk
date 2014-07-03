@@ -1,5 +1,6 @@
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
+LOCAL_LDLIBS := -lGLESv3
 LOCAL_CPPFLAGS  := -std=c++11
 LOCAL_MODULE    := hge
 LOCAL_SRC_FILES :=  hge-camera-unit.cpp \

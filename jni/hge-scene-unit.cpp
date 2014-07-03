@@ -1,15 +1,10 @@
 #include "hge-scene-unit.hpp"
 #include "hge-white-shader.hpp"
 #include <iostream>
-#ifdef _WIN64
-#define HGESCENEUNITDEFAULTTEXTUREFILENAME "C:\\Users\\Thany\\Documents\\Visual Studio 2012\\Projects\\HGE\\x64\\Release\\textures\\hge.jpg"
-#elif __unix__
-#define HGESCENEUNITDEFAULTTEXTUREFILENAME "textures/hge.jpg"
-#endif
+std::shared_ptr<hge::shader::SunShader> hge::render::SceneUnit::defaultShader;
+std::shared_ptr<hge::texture::TextureUnit> hge::render::SceneUnit::defaultTexture;
 hge::render::SceneUnit::SceneUnit():
 	occlusionQueryShader(new shader::WhiteShader()),
-	defaultShader(new shader::SunShader()),
-	defaultTexture(new texture::TextureUnit(GL_TEXTURE_2D, HGESCENEUNITDEFAULTTEXTUREFILENAME)),
 	currentCameraIndex(0),
 	currentPerspectiveIndex(0),
 	hasTerrain(false),

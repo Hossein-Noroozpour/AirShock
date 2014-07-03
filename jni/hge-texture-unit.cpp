@@ -23,9 +23,9 @@ bool hge::texture::TextureUnit::load()
 {
 	return true;
 }
+#endif
 void hge::texture::TextureUnit::bind(GLenum TextureUnit)
 {
 	glActiveTexture(TextureUnit);
 	glBindTexture(m_textureTarget, m_textureObj);
 }
-#endif
