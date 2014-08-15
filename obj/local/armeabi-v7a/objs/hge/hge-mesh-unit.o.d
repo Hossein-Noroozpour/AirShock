@@ -1,8 +1,8 @@
 /home/thany/Programming/Android/AirShock/obj/local/armeabi-v7a/objs/hge/hge-mesh-unit.o: \
  /home/thany/Programming/Android/AirShock/jni/hge-mesh-unit.cpp \
  /home/thany/Programming/Android/AirShock/jni/hge-mesh-unit.hpp \
- /home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/GLES3/gl3.h \
- /home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/GLES3/gl3platform.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/GLES2/gl2.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/GLES2/gl2platform.h \
  /home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/KHR/khrplatform.h \
  /home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/sys/cdefs.h \
  /home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/sys/cdefs_elf.h \
@@ -103,9 +103,9 @@
 
 /home/thany/Programming/Android/AirShock/jni/hge-mesh-unit.hpp:
 
-/home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/GLES3/gl3.h:
+/home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/GLES2/gl2.h:
 
-/home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/GLES3/gl3platform.h:
+/home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/GLES2/gl2platform.h:
 
 /home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/KHR/khrplatform.h:
 

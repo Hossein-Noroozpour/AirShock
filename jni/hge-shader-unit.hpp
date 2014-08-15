@@ -1,7 +1,7 @@
 #ifndef HGE_SHADER_UNIT_HPP_
 #define HGE_SHADER_UNIT_HPP_
 #ifdef ANDROID
-#include <GLES3/gl3.h>
+#include <GLES2/gl2.h>
 #else
 #include <GL/glew.h>
 #include <GL/gl.h>

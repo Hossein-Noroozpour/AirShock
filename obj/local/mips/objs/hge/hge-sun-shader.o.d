@@ -9,8 +9,8 @@
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/type_traits \
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/cstddef \
  /home/thany/Programming/Android/AirShock/jni/hge-shader-unit.hpp \
- /home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/GLES3/gl3.h \
- /home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/GLES3/gl3platform.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/GLES2/gl2.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/GLES2/gl2platform.h \
  /home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/KHR/khrplatform.h \
  /home/thany/Programming/Android/AirShock/jni/hge-shader-engine.hpp \
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/string \
@@ -110,9 +110,9 @@
 
 /home/thany/Programming/Android/AirShock/jni/hge-shader-unit.hpp:
 
-/home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/GLES3/gl3.h:
+/home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/GLES2/gl2.h:
 
-/home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/GLES3/gl3platform.h:
+/home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/GLES2/gl2platform.h:
 
 /home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/KHR/khrplatform.h:
 

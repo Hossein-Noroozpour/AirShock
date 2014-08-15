@@ -38,8 +38,8 @@
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/cassert \
  /home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/assert.h \
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/stdexcept \
- /home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/GLES3/gl3.h \
- /home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/GLES3/gl3platform.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/GLES2/gl2.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/GLES2/gl2platform.h \
  /home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/KHR/khrplatform.h \
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/iostream \
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/ios \
@@ -164,9 +164,9 @@
 
 /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/stdexcept:
 
-/home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/GLES3/gl3.h:
+/home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/GLES2/gl2.h:
 
-/home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/GLES3/gl3platform.h:
+/home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/GLES2/gl2platform.h:
 
 /home/thany/Programs/android-ndk/platforms/android-19/arch-arm/usr/include/KHR/khrplatform.h:
 

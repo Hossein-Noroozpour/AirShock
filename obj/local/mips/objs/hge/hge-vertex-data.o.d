@@ -1,8 +1,8 @@
 /home/thany/Programming/Android/AirShock/obj/local/mips/objs/hge/hge-vertex-data.o: \
  /home/thany/Programming/Android/AirShock/jni/hge-vertex-data.cpp \
  /home/thany/Programming/Android/AirShock/jni/hge-vertex-data.hpp \
- /home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/GLES3/gl3.h \
- /home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/GLES3/gl3platform.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/GLES2/gl2.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/GLES2/gl2platform.h \
  /home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/KHR/khrplatform.h \
  /home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/sys/cdefs.h \
  /home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/sys/cdefs_elf.h \
@@ -105,9 +105,9 @@
 
 /home/thany/Programming/Android/AirShock/jni/hge-vertex-data.hpp:
 
-/home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/GLES3/gl3.h:
+/home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/GLES2/gl2.h:
 
-/home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/GLES3/gl3platform.h:
+/home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/GLES2/gl2platform.h:
 
 /home/thany/Programs/android-ndk/platforms/android-19/arch-mips/usr/include/KHR/khrplatform.h:
 

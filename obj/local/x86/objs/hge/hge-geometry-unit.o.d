@@ -32,8 +32,8 @@
  /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/sys/sysmacros.h \
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/../../android/support/include/xlocale.h \
  /home/thany/Programming/Android/AirShock/jni/hge-mesh-unit.hpp \
- /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/GLES3/gl3.h \
- /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/GLES3/gl3platform.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/GLES2/gl2.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/GLES2/gl2platform.h \
  /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/KHR/khrplatform.h \
  /home/thany/Programming/Android/AirShock/jni/hge-model-unit.hpp \
  /home/thany/Programming/Android/AirShock/jni/hge-math.hpp \
@@ -45,12 +45,24 @@
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/cstddef \
  /home/thany/Programming/Android/AirShock/jni/hge-shader-unit.hpp \
  /home/thany/Programming/Android/AirShock/jni/hge-texture-unit.hpp \
- /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/string \
- /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/iosfwd \
- /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/../../android/support/include/wchar.h \
+ /home/thany/Programming/Android/AirShock/jni/dependencies/LibPNG/Source/png.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/zlib.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/zconf.h \
+ /home/thany/Programming/Android/AirShock/jni/dependencies/LibPNG/Source/pngconf.h \
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/../../android/support/include/stdio.h \
  /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/stdio.h \
+ /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/../../android/support/include/wchar.h \
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/../../android/support/include/wctype.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/setjmp.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/machine/setjmp.h \
+ /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/../../android/support/include/time.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/time.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/sys/time.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/linux/time.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/asm/siginfo.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/asm-generic/siginfo.h \
+ /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/string \
+ /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/iosfwd \
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/cstring \
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/cstdio \
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/cwchar \
@@ -81,12 +93,6 @@
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/__mutex_base \
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/chrono \
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/ctime \
- /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/../../android/support/include/time.h \
- /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/time.h \
- /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/sys/time.h \
- /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/linux/time.h \
- /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/asm/siginfo.h \
- /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/asm-generic/siginfo.h \
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/ratio \
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/climits \
  /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/system_error \
@@ -184,9 +190,9 @@
 
 /home/thany/Programming/Android/AirShock/jni/hge-mesh-unit.hpp:
 
-/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/GLES3/gl3.h:
+/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/GLES2/gl2.h:
 
-/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/GLES3/gl3platform.h:
+/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/GLES2/gl2platform.h:
 
 /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/KHR/khrplatform.h:
 
@@ -210,17 +216,41 @@
 
 /home/thany/Programming/Android/AirShock/jni/hge-texture-unit.hpp:
 
-/home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/string:
+/home/thany/Programming/Android/AirShock/jni/dependencies/LibPNG/Source/png.h:
 
-/home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/iosfwd:
+/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/zlib.h:
 
-/home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/../../android/support/include/wchar.h:
+/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/zconf.h:
+
+/home/thany/Programming/Android/AirShock/jni/dependencies/LibPNG/Source/pngconf.h:
 
 /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/../../android/support/include/stdio.h:
 
 /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/stdio.h:
 
+/home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/../../android/support/include/wchar.h:
+
 /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/../../android/support/include/wctype.h:
+
+/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/setjmp.h:
+
+/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/machine/setjmp.h:
+
+/home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/../../android/support/include/time.h:
+
+/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/time.h:
+
+/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/sys/time.h:
+
+/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/linux/time.h:
+
+/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/asm/siginfo.h:
+
+/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/asm-generic/siginfo.h:
+
+/home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/string:
+
+/home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/iosfwd:
 
 /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/cstring:
 
@@ -281,18 +311,6 @@
 /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/chrono:
 
 /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/ctime:
-
-/home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/../../android/support/include/time.h:
-
-/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/time.h:
-
-/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/sys/time.h:
-
-/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/linux/time.h:
-
-/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/asm/siginfo.h:
-
-/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/asm-generic/siginfo.h:
 
 /home/thany/Programs/android-ndk/sources/cxx-stl/llvm-libc++/libcxx/include/ratio:
 

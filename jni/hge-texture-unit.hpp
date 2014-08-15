@@ -1,7 +1,8 @@
 #ifndef HGETEXTUREUNIT_HPP
 #define	HGETEXTUREUNIT_HPP
 #ifdef ANDROID
-#include <GLES3/gl3.h>
+#include <GLES2/gl2.h>
+#include <png.h>
 #else
 #include <GL/glew.h>
 #include <GL/gl.h>

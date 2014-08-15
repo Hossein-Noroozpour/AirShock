@@ -16,7 +16,9 @@ hge::render::SceneUnit::SceneUnit():
 void hge::render::SceneUnit::addGeometry(const std::shared_ptr<GeometryUnit>& geometry)
 {
 	hasGeometry = true;
+#ifdef GL_ES_VERSION_3_0
 	geometry->setOcclusionQueryShader(occlusionQueryShader);
+#endif
 	geometry->setShader(defaultShader);
 	geometry->setTexture(defaultTexture);
 	geometry->getModelMatrix()->scale(1000.0f);
@@ -40,6 +42,7 @@ hge::render::SceneUnit::draw()
 	}
 	if(hasGeometry)
 	{
+#ifdef GL_ES_VERSION_3_0
 		glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 		glDepthMask(GL_FALSE);
 		geometries[0]->occlusionQueryStarter(vp);
@@ -49,9 +52,10 @@ hge::render::SceneUnit::draw()
 		}
 		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 		glDepthMask(GL_TRUE);
+#endif
 		for(unsigned int i = 0; i < geometries.size(); i++)
 		{
-			geometries[i]->draw();
+			geometries[i]->draw(vp);
 		}
 	}
 }

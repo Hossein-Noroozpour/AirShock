@@ -1,8 +1,8 @@
 /home/thany/Programming/Android/AirShock/obj/local/x86/objs/hge/hge-shader-unit.o: \
  /home/thany/Programming/Android/AirShock/jni/hge-shader-unit.cpp \
  /home/thany/Programming/Android/AirShock/jni/hge-shader-unit.hpp \
- /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/GLES3/gl3.h \
- /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/GLES3/gl3platform.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/GLES2/gl2.h \
+ /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/GLES2/gl2platform.h \
  /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/KHR/khrplatform.h \
  /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/sys/cdefs.h \
  /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/sys/cdefs_elf.h \
@@ -29,9 +29,9 @@
 
 /home/thany/Programming/Android/AirShock/jni/hge-shader-unit.hpp:
 
-/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/GLES3/gl3.h:
+/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/GLES2/gl2.h:
 
-/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/GLES3/gl3platform.h:
+/home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/GLES2/gl2platform.h:
 
 /home/thany/Programs/android-ndk/platforms/android-19/arch-x86/usr/include/KHR/khrplatform.h:
 
